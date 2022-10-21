@@ -1,1 +1,1 @@
-from classifiers.nmc import NMC
+from .nmc import NMC

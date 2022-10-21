@@ -3,17 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 from classifiers import NMC
-
+from data_loaders import CDataLoaderMNIST
 from sklearn.metrics import pairwise_distances
 import time
-
-
-def load_mnist_data(filename):
-    data = pd.read_csv(filename)
-    data = np.array(data)
-    y = data[:, 0]
-    x = data[:, 1:] / 255
-    return x, y
 
 
 def plot_digit(image, shape=(28, 28)):
@@ -51,12 +43,11 @@ def test_error(y_pred, yts):
     return (y_pred != yts).mean()
 
 
-filename = '../data/mnist_data.csv'
-x, y = load_mnist_data(filename)
-
+data_loader = CDataLoaderMNIST()
 clf = NMC()
 
-print(clf.centroids)
+
+x, y = data_loader.load_data()
 
 xtr, ytr, xts, yts = split_data(x, y)
 clf.fit(xtr, ytr)
@@ -66,5 +57,3 @@ y_pred = clf.predict(xts)
 ts_error = test_error(y_pred, yts)
 
 print(ts_error)
-
-
