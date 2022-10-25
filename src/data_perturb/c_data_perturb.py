@@ -10,6 +10,6 @@ class CDataPerturb(ABC):
     def perturb_dataset(self, X):
         Xp = X.copy()
         for i in range(X.shape[0]):
-            Xp[i, :] = self.data_perturbation(X[i,:])
+            Xp[i, :] = self.data_perturbation(Xp[i,:])
         return Xp
     
