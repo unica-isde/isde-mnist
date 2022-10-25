@@ -3,7 +3,13 @@ from sklearn.metrics import pairwise_distances
 
 
 class NMC:
+    """This is my class for NMC classification model.
 
+    Parameters
+    ----------
+
+
+    """
     def __init__(self):
         self._centroids = None
 
@@ -12,6 +18,17 @@ class NMC:
         return self._centroids
 
     def fit(self, xtr, ytr):
+        """
+
+        Parameters
+        ----------
+        xtr : training dataset
+        ytr : training labels
+
+        Returns
+        -------
+        clf : trained model
+        """
         num_classes = np.unique(ytr).size
         num_features = xtr.shape[1]
         self._centroids = np.zeros(shape=(num_classes, num_features))
