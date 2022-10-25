@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 
 
 def test_acc(yts, ypred):
-    return (yts == ypred).mean()
+    return np.mean(yts == ypred)
 
 
 def plot_digit(image, shape=(28, 28)):
@@ -27,11 +27,13 @@ def plot_ten_digits(x, y=None):
 
 def classify_perturb_data(
         clf, x, y, data_perturb, perturb_params, param_name):
-
     acc_values = np.zeros(perturb_params.size)
     for i, val in enumerate(perturb_params):
         # set perturbation param, perturb data, classify it, compute acc
-        data_perturb.__setattr__(param_name, val)
+        if hasattr(data_perturb, param_name):
+            setattr(data_perturb, param_name, val)
+        else:
+            raise ValueError("Wrong parameter name!")
         xp = data_perturb.perturb_dataset(x)
         ypred = clf.predict(xp)
         acc_values[i] = test_acc(y, ypred)
@@ -66,11 +68,9 @@ ypred = clf.predict(xts)
 acc = test_acc(yts, ypred)
 print("Initial accuracy:", acc * 100, "%")
 
-
 sigma_values = np.array([0, 0.1, 0.2, 0.5, 1.0])
 acc_gaussian = classify_perturb_data(
     clf, xts, yts, data_perturb2, sigma_values, "sigma")
-
 
 k_values = np.array([0, 10, 20, 50, 100, 200])
 acc_uniform = classify_perturb_data(
@@ -81,6 +81,8 @@ print("Initial acc:", acc_gaussian[0], acc_uniform[0])
 plt.figure()
 plt.subplot(1, 2, 1)
 plt.plot(k_values, acc_uniform)
+plt.xlabel("K")
 plt.subplot(1, 2, 2)
 plt.plot(sigma_values, acc_gaussian)
+plt.xlabel(r"$\sigma$")
 plt.show()
