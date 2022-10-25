@@ -86,3 +86,13 @@ plt.subplot(1, 2, 2)
 plt.plot(sigma_values, acc_gaussian)
 plt.xlabel(r"$\sigma$")
 plt.show()
+
+
+plt.figure()
+plt.plot(k_values, acc_uniform, 'b', label="uniform")
+plt.plot(sigma_values*100, acc_gaussian, 'r', label="normal")
+plt.title('Test accuracy')
+plt.xlabel(r'Perturbation size (K or $\sigma$*100)')
+plt.legend()
+plt.savefig('../figs/error_perturbed.pdf')
+plt.show()
