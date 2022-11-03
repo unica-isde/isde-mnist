@@ -46,7 +46,6 @@ def test_error(y_pred, yts):
 data_loader = CDataLoaderMNIST()
 clf = NMC()
 
-
 x, y = data_loader.load_data()
 
 xtr, ytr, xts, yts = split_data(x, y)
