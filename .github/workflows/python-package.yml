@@ -38,4 +38,7 @@ jobs:
     - name: Test with pytest
       run: |
         export PYTHONPATH="src"
-        pytest
+        python -m coverage run -m pytest
+        curl -Os https://uploader.codecov.io/latest/linux/codecov
+        chmod +x codecov
+        ./codecov -t $CODECOV_TOKEN=38947d47-22d3-4d54-afd4-eb0e5e201d45
