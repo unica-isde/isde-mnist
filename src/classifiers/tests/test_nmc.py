@@ -17,3 +17,9 @@ class TestNMC(unittest.TestCase):
         self.assertIsNotNone(out)
         self.assertEqual(out.shape, (1, 2))
         self.assertTrue(out.sum() == 0)
+
+    def test_predict(self):
+        self.assertRaises(ValueError, self.clf.predict, self.x)
+        self.clf.fit(self.x, self.y)
+        ypred = self.clf.predict(self.x)
+        self.assertTrue(ypred.sum() == 0)
