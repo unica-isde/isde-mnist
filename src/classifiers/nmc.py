@@ -22,8 +22,8 @@ class NMC:
 
         Parameters
         ----------
-        xtr : training dataset
-        ytr : training labels
+           xtr : training dataset
+           ytr : training labels
 
         Returns
         -------
