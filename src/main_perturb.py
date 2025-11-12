@@ -8,7 +8,7 @@ from data_perturb import CDataPerturbRandom, CDataPerturbGaussian
 from sklearn.model_selection import train_test_split
 
 
-def test_acc(yts, ypred):
+def ts_acc(yts, ypred):
     """
 
     Parameters
@@ -47,7 +47,7 @@ def classify_perturb_data(
             raise ValueError("Wrong parameter name!")
         xp = data_perturb.perturb_dataset(x)
         ypred = clf.predict(xp)
-        acc_values[i] = test_acc(y, ypred)
+        acc_values[i] = ts_acc(y, ypred)
     return acc_values
 
 
@@ -76,7 +76,7 @@ xtr, xts, ytr, yts = train_test_split(x, y, train_size=0.6)
 clf = NMC()
 clf.fit(xtr, ytr)
 ypred = clf.predict(xts)
-acc = test_acc(yts, ypred)
+acc = ts_acc(yts, ypred)
 print("Initial accuracy:", acc * 100, "%")
 
 sigma_values = np.array([0, 0.1, 0.2, 0.5, 1.0])
@@ -96,7 +96,7 @@ plt.xlabel("K")
 plt.subplot(1, 2, 2)
 plt.plot(sigma_values, acc_gaussian)
 plt.xlabel(r"$\sigma$")
-plt.show()
+# plt.show()
 
 
 plt.figure()

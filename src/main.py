@@ -39,7 +39,7 @@ def split_data(x, y, tr_fraction=0.5):
 
 
 # measure test error
-def test_error(y_pred, yts):
+def ts_error(y_pred, yts):
     return (y_pred != yts).mean()
 
 
@@ -53,6 +53,6 @@ clf.fit(xtr, ytr)
 print(clf.centroids)
 
 y_pred = clf.predict(xts)
-ts_error = test_error(y_pred, yts)
+ts_error = ts_error(y_pred, yts)
 
 print(ts_error)
